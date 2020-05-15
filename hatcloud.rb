@@ -65,6 +65,16 @@ else
 	request = Net::HTTP.post_form(payload, 'cfS' => options[:bypass])
 
 	response =  request.body
+
+else
+	begin
+	option = options[:bypass]
+	payload = URI ("http://www.crimeflare.us:82/cgi-bin/cfsearch.cgi")
+	payload = URI ("http://www.crimeflare.org:82/cgi-bin/cfsearch.cgi")
+	request = Net::HTTP.post_form(payload, 'cfS' => options[:bypass])
+
+	response =  request.body
+
 	nscheck = /No working nameservers are registered/.match(response)
 	if( !nscheck.nil? )
 		puts "[-] No valid address - are you sure this is a CloudFlare protected domain?\n"
